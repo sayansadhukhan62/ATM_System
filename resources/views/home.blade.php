@@ -3,33 +3,38 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        <div class="col-md-12">
+            <div class="pb-5">
+            Available Numbers of Notes : <br>
+            
+                        Five Hundred Notes => {{$notesAvl->fiveh}}&nbsp;&nbsp;
+                        One Hundred Notes  => {{$notesAvl->oneh}}&nbsp;&nbsp;
+                        Fifty Notes  => {{$notesAvl->fifty}}&nbsp;&nbsp;
+                        Twenty Notes => {{$notesAvl->twenty}}&nbsp;&nbsp;
+                        Ten Notes  => {{$notesAvl->ten}}&nbsp;&nbsp;
+                        Five Notes  => {{$notesAvl->five}}&nbsp;&nbsp;
+            
+            </div>
                     <form action="{{ route('atm') }}" method="get">
                         @csrf
-                    Amount To be deducted : <input type="number" name="amount">
-                    <input type="submit" value="submit">
+                    Amount : 
+                    <input type="number" name="amount">
+                    <input type="submit" value="Submit">
                     </form>
-                </div>
-            </div><br>
-            @if($insf != "")
+                    <br><br>
+                    @isset($insf)
+                    @if($insf != "")
                         {{$insf}}
                     @else
-                        FiveHundred Notes => {{$notes[0]}} <br>
-                        OneHundred Notes  => {{$notes[1]}}<br>
-                        Fifty Notes  => {{$notes[2]}}<br>
-                        Twenty Notes => {{$notes[3]}}<br>
-                        Ten Notes  => {{$notes[4]}}<br>
-                        Five Notes  => {{$notes[5]}}<br>
+                    Recieved Numbers of Notes : <br>
+                        Five Hundred Notes => {{$notes[0]}}&nbsp;&nbsp;
+                        One Hundred Notes  => {{$notes[1]}}&nbsp;&nbsp;
+                        Fifty Notes  => {{$notes[2]}}&nbsp;&nbsp;
+                        Twenty Notes => {{$notes[3]}}&nbsp;&nbsp;
+                        Ten Notes  => {{$notes[4]}}&nbsp;&nbsp;
+                        Five Notes  => {{$notes[5]}}&nbsp;&nbsp;
                     @endif
+                    @endisset
         </div>
     </div>
 </div>

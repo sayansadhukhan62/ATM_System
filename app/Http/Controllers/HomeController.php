@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $notesAvl = Note::find(1);
+        return view('home',['notesAvl'=>$notesAvl]);
     }
 
 
@@ -38,6 +39,7 @@ class HomeController extends Controller
         $ten = 0;
         $five = 0;
         $insf = "";
+        $notes = [];
 
         $amount = $request->amount;
 
@@ -159,14 +161,14 @@ class HomeController extends Controller
         }
 
 
-        $notes = Note::find(1);
-        // dd($notes);
-        $fiveHundredAvl = $notes->fiveh;
-        $oneHundredAvl = $notes->oneh;
-        $fiftyAvl = $notes->fifty;
-        $twentyAvl = $notes->twenty;
-        $tenAvl = $notes->ten;
-        $fiveAvl = $notes->five;
+        $notesAvl = Note::find(1);
+        // dd($notesAvl);
+        $fiveHundredAvl = $notesAvl->fiveh;
+        $oneHundredAvl = $notesAvl->oneh;
+        $fiftyAvl = $notesAvl->fifty;
+        $twentyAvl = $notesAvl->twenty;
+        $tenAvl = $notesAvl->ten;
+        $fiveAvl = $notesAvl->five;
 
         // dd($fiveHundredAvl);
 
@@ -213,12 +215,16 @@ class HomeController extends Controller
         if($fiveAvl >= $five){
             $five = $five;
             $notes = array($fiveHundred,$oneHundred,$fifty,$twenty,$ten,$five);
+            $wamount = (500*$fiveHundred + 100*$oneHundred + 50*$fifty + 20*$twenty + 10*$ten + 5*$five);
+            if($wamount != $request->amount){
+                $insf = "Please request for a round digit amount!";
+            }
         }else{
             $insf = "You have insufficient balance in your account!";
         }
 
         
-        return view('home',['notes'=>$notes, 'insf' => $insf]);
+        return view('home',['notes'=>$notes, 'insf' => $insf, 'notesAvl'=>$notesAvl]);
 
     }   
 
